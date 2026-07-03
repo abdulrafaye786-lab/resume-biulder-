@@ -4,10 +4,10 @@ import { MultiStepForm } from './components/MultiStepForm';
 import { ResumePreview } from './components/ResumePreview';
 import { ResumeHistoryDashboard } from './components/ResumeHistoryDashboard';
 import { AuthModal } from './components/AuthModal';
-import { FileText, Sun, Moon, Sparkles, LogOut, FolderOpen } from 'lucide-react';
+import { FileText, Sun, Moon, Sparkles, LogOut, FolderOpen, AlertTriangle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from './contexts/AuthContext';
-import { supabase } from './lib/supabase';
+import { supabase, isSupabaseConfigured } from './lib/supabase';
 import { ModernCreativeTemplate } from './templates/ModernCreativeTemplate';
 import { pdf } from '@react-pdf/renderer';
 
@@ -206,6 +206,21 @@ export default function App() {
           </div>
         </div>
       </header>
+
+      {/* Configuration warning banner */}
+      {!isSupabaseConfigured && (
+        <div className="bg-amber-500/10 border-b border-amber-500/25 py-2.5 px-4 text-center z-50 relative backdrop-blur-md">
+          <div className="max-w-[1600px] mx-auto flex flex-col sm:flex-row items-center justify-center gap-2 text-xs font-bold text-amber-700 dark:text-amber-400">
+            <span className="flex items-center gap-1.5">
+              <AlertTriangle className="w-4 h-4 shrink-0 animate-pulse text-amber-500" />
+              Supabase Configuration Required:
+            </span>
+            <span className="font-semibold text-slate-600 dark:text-slate-300">
+              Please configure `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` env variables in Vercel or Netlify to enable saving progress and PDF downloads.
+            </span>
+          </div>
+        </div>
+      )}
 
       {/* Tabs Navigation Switcher */}
       <div className="relative max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 z-10">
