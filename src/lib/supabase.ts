@@ -1,15 +1,9 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+// Hardcoded public credentials so the app works out-of-the-box on public hosts
+const supabaseUrl = 'https://jgjwhuyrdjkhkhesxxbw.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpnandodXlyZGpraGtoZXN4eGJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4ODU5MjksImV4cCI6MjA5NzQ2MTkyOX0.X2yX8SJQtCAMiyUj48aanQOuyM3KAoltI7a8GwZHuaM';
 
-// Export flag to check if keys are configured
-export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
+export const isSupabaseConfigured = true;
 
-const fallbackUrl = 'https://placeholder-project.supabase.co';
-const fallbackKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsYWNlaG9sZGVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDY3NDU2MDAsImV4cCI6MjAyMzgxNzYwMH0.placeholder-signature';
-
-export const supabase = createClient(
-  isSupabaseConfigured ? supabaseUrl : fallbackUrl,
-  isSupabaseConfigured ? supabaseAnonKey : fallbackKey
-);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
